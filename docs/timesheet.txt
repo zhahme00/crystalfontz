@@ -1,0 +1,18 @@
+2017-10-17
+19:30	Started
+	Refactoring packet, request, response, report, etc.
+19:55	Stopped
+21:00	Started
+	Started new project, using Qt Subdirs project template.
+	Created packet w/ full serialization.
+23:30	Stopped
+
+2017-10-15
+01:00	Started
+	Extract key from reports.
+01:30	Stopped
+
+2017-10-14
+00:45	Started
+	Parse ingress messages.
+01:25	Stopped
