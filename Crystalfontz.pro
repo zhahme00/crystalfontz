@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     libcfa533 \
-    ConsoleLibTester
+    ConsoleLibTester \
+    Tests

@@ -1,4 +1,11 @@
 2017-10-17
+21:00	Started
+	Command packets, main cfa533 lcd.
+	Testing code via console lib tester.
+	Researched custom character.
+23:20	Stopped
+
+2017-10-17
 19:30	Started
 	Refactoring packet, request, response, report, etc.
 19:55	Stopped

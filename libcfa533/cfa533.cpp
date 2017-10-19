@@ -6,12 +6,13 @@
 namespace crystalfontz {
 namespace cfa533 {
 
-CFA533::CFA533(QSerialPort &serialPort, QObject *parent) :
+CFA533::CFA533(QString port, int baudrate, QObject *parent) :
     QObject(parent),
-    m_serialPort(serialPort)
+    m_serialPort(port, this)
 {
-    QObject::connect(&serialPort, &QSerialPort::readyRead, this, &CFA533::onSerialPortReadyRead);
-    QObject::connect(&serialPort, &QSerialPort::errorOccurred, this, &CFA533::onSerialPortErrorOccurred);
+    m_serialPort.setBaudRate(baudrate);
+    QObject::connect(&m_serialPort, &QSerialPort::readyRead, this, &CFA533::onSerialPortReadyRead);
+    QObject::connect(&m_serialPort, &QSerialPort::errorOccurred, this, &CFA533::onSerialPortErrorOccurred);
 }
 
 bool CFA533::isReady() const
@@ -54,8 +55,6 @@ void CFA533::close()
     if (m_serialPort.isOpen()) {
         m_serialPort.close();
     }
-
-    m_serialPort.deleteLater();
 }
 
 void CFA533::onSerialPortReadyRead()
@@ -66,11 +65,9 @@ void CFA533::onSerialPortReadyRead()
 
     QByteArray bytes = m_serialPort.readAll();
     Q_ASSERT(bytes.length() > 0);
-    qDebug() << bytes;
 
     Packet p;
-    if (cfa533::deserialize(bytes, p) && is_valid(p)) {
-        qDebug() << "Emitting";
+    if (deserialize(bytes, p) && is_valid(p)) {
         emit received(p);
     }
 
@@ -117,14 +114,6 @@ void CFA533::onSerialPortErrorOccurred(QSerialPort::SerialPortError error)
     }
 
     qWarning() << "Error from serial port" << m_serialPort.portName() << ":" << error;
-}
-
-CFA533 *create_instance(QObject *parent, QString port, int baudRate)
-{
-    // TODO: Consider using & returning shared pointers.
-    auto serial = new QSerialPort(port, parent);
-    serial->setBaudRate(baudRate);
-    return new CFA533(*serial, parent);
 }
 
 } // cfa533

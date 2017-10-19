@@ -1,7 +1,8 @@
 /**
+  * @copyright  Copyright (C) 2017 All Rights Reserved.
   * @author Zee Ahmed
   * @date   2017/10/15
-  * @brief Encapsulates data sent and received from a Crystalfontz CFA533 LCD (hardware).
+  * @brief  Encapsulates data sent and received from a Crystalfontz CFA533 LCD (hardware).
   */
 
 #ifndef CRYSTALFONTZ_CFA533_PACKET_H
@@ -43,8 +44,11 @@ private:
 
 // Serializes packet with crc, i.e., array will contain packet plus 2 bytes of CRC.
 bool serialize(const Packet &packet, QByteArray &array);
-bool deserialize(const QByteArray &array, Packet &packet);
+bool deserialize(const QByteArray &array, Packet &packet, bool checkCRC = false);
 bool is_valid(const Packet &packet);
+bool is_valid(const QByteArray &array);
+
+QDebug operator <<(QDebug debug, const Packet &packet);
 
 } // cfa533
 } // crystalfontz

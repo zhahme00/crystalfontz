@@ -66,9 +66,14 @@ word get_crc(ubyte *bufptr, word len)
 }
 }
 
-ushort compute_crc(const QByteArray &array)
+ushort compute_crc(const QByteArray &array, int len)
 {
-    return get_crc((unsigned char *)array.data(), array.length());
+    return get_crc((unsigned char *)array.data(), len > -1 ? len : array.length());
+}
+
+int packet_length(const Packet &packet)
+{
+    return 2 + packet.data().length() + 2;
 }
 
 

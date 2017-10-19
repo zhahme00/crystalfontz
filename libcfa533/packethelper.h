@@ -1,3 +1,10 @@
+/**
+  * @copyright Copyright (C) 2017 All Rights Reserved
+  * @author Zee Ahmed
+  * @date   2017/10/15
+  * @brief  Helper functions for Packets.
+  */
+
 #ifndef CRYSTALFONTZ_CFA533_PACKETHELPER_H
 #define CRYSTALFONTZ_CFA533_PACKETHELPER_H
 
@@ -26,7 +33,9 @@ private:
     explicit PacketHelper() = delete;
 };
 
-ushort compute_crc(const QByteArray &array);
+ushort compute_crc(const QByteArray &array, int len = -1);
+int packet_length(const Packet &packet);
+bool is_reseponse(const Packet &request, const Packet &response);
 
 } // cfa533
 } // crystalfontz

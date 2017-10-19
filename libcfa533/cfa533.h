@@ -1,3 +1,10 @@
+/**
+  * @copyright  Copyright (C) 2017 All Rights Reserved.
+  * @author Zee Ahmed
+  * @date   2017/10/16
+  * @brief  Abstraction of Crystalfontz CFA-533 LCD hardware.
+  */
+
 #ifndef CRYSTALFONTZ_CFA533_CFA533_H
 #define CRYSTALFONTZ_CFA533_CFA533_H
 
@@ -13,7 +20,8 @@ class CFA533 : public QObject
 {
     Q_OBJECT
 public:
-    explicit CFA533(QSerialPort &serialPort, QObject *parent = nullptr);
+    explicit CFA533(QString port = "/dev/ttyUSB0", int baudrate = QSerialPort::Baud19200,
+                    QObject *parent = nullptr);
 
     bool isReady() const;
     bool send(const Packet &packet);
@@ -28,14 +36,11 @@ private slots:
     void onSerialPortErrorOccurred(QSerialPort::SerialPortError error);
 
 private:
-    QSerialPort &m_serialPort;
+    QSerialPort m_serialPort;
     // Fragmented packets can arrive from the serial port. Fragmented data bytes
     // are queued and processed when all are available.
     QByteArray m_ingressBytes;
 };
-
-CFA533 *create_instance(QObject *parent = nullptr, QString port = "/dev/ttyUSB0",
-                        int baudRate = QSerialPort::Baud19200);
 
 } // cfa533
 } // crystalfontz
