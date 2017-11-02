@@ -18,9 +18,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp
 
-unix:!macx: LIBS += -L$$OUT_PWD/../libcfa533/ -llibcfa533
+unix:!macx: LIBS += -L$$OUT_PWD/../cfa533/ -lcfa533
 
-INCLUDEPATH += $$PWD/../libcfa533
-DEPENDPATH += $$PWD/../libcfa533
+INCLUDEPATH += $$PWD/../cfa533
+DEPENDPATH += $$PWD/../cfa533
 
-unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../libcfa533/liblibcfa533.a
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../cfa533/libcfa533.a
