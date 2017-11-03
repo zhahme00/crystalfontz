@@ -7,13 +7,18 @@
 
 #include <QCoreApplication>
 
+#include <QObject>
 #include <QDebug>
 #include "packet.h"
 #include "packethelper.h"
 #include "cfa533.h"
 #include "commands.h"
 
+#include "dialogs/confirmation.h"
+#include "prompt.h"
+
 using namespace crystalfontz::cfa533;
+using namespace cfa533::screens::dialogs;
 
 int main(int argc, char *argv[])
 {
@@ -22,6 +27,7 @@ int main(int argc, char *argv[])
 
     QCoreApplication app(argc, argv);
 
+    // Display something on the hardware directly.
     CFA533 lcd;
     QObject::connect(&lcd, &CFA533::received, [](const Packet &p) {
         qDebug() << p;
@@ -33,6 +39,19 @@ int main(int argc, char *argv[])
     lcd.send(set_lcd_cursor_position(12, 0));
     lcd.send(set_lcd_cursor_style(Cfa533Cursor::BlinkingUnderscore));
     lcd.send(send_data_to_lcd(2, 0, "testing..."));
+
+    // Display scrolling text on to the hardware implicitly.
+//    screen::Scrolling sc1;
+//    sc1.line1 = "a very long long long long line";
+//    sc1.line2 = "a short line";
+//    sc1.setLines(QStringList() << "a long line 1"
+//                 << "Another line"
+//                 << "Some more lines"
+//                 << "one last line");
+    //Confirmation *confirm = new Confirmation(&lcd, nullptr);
+    cfa533::screens::Prompt p;
+    p.parent();
+
 
     return app.exec();
     lcd.close();

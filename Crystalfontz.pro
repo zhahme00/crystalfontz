@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     cfa533 \
     consoleLibTester \
-    tests
+    tests \
+    cfa533-screens

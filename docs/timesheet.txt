@@ -1,3 +1,10 @@
+2017-11-01
+21:20	Started
+	Renamed projects.
+	Added menu project.
+22:45	Stopped
+
+
 2017-10-17
 21:00	Started
 	Command packets, main cfa533 lcd.
