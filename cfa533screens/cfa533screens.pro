@@ -8,7 +8,7 @@ QT = core
 QT += serialport
 QT -= gui
 
-TARGET = cfa533-screens
+TARGET = cfa533screens
 TEMPLATE = lib
 CONFIG += staticlib
 
@@ -24,14 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    cfa533screens.cpp \
-    prompt.cpp \
     dialogs/confirmation.cpp
 
 HEADERS += \
-    cfa533screens.h \
-    prompt.h \
-    dialogs/confirmation.h
+    dialogs/confirmation.h \
+    screen_interface.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

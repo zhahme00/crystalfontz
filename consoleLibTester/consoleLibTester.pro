@@ -25,9 +25,9 @@ DEPENDPATH += $$PWD/../cfa533
 
 unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../cfa533/libcfa533.a
 
-unix:!macx: LIBS += -L$$OUT_PWD/../cfa533-screens/ -lcfa533-screens
+unix:!macx: LIBS += -L$$OUT_PWD/../cfa533screens/ -lcfa533screens
 
-INCLUDEPATH += $$PWD/../cfa533-screens
-DEPENDPATH += $$PWD/../cfa533-screens
+INCLUDEPATH += $$PWD/../cfa533screens
+DEPENDPATH += $$PWD/../cfa533screens
 
-unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../cfa533-screens/libcfa533-screens.a
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../cfa533screens/libcfa533screens.a

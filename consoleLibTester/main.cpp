@@ -9,13 +9,13 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QByteArray>
 #include "packet.h"
 #include "packethelper.h"
 #include "cfa533.h"
 #include "commands.h"
 
 #include "dialogs/confirmation.h"
-#include "prompt.h"
 
 using namespace crystalfontz::cfa533;
 using namespace cfa533::screens::dialogs;
@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
 //                 << "Another line"
 //                 << "Some more lines"
 //                 << "one last line");
-    //Confirmation *confirm = new Confirmation(&lcd, nullptr);
-    cfa533::screens::Prompt p;
-    p.parent();
+    Confirmation confirm(lcd, nullptr);
+    confirm.setCaption("OK?");
+    confirm.show();
 
 
     return app.exec();

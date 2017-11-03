@@ -1,3 +1,4 @@
+// TODO: Append namespace name
 #ifndef CONFIRMATION_H
 #define CONFIRMATION_H
 
@@ -13,11 +14,13 @@ class Confirmation : public QObject
 {
     Q_OBJECT
 public:
-    explicit Confirmation(crystalfontz::cfa533::CFA533 *lcd,
+    explicit Confirmation(crystalfontz::cfa533::CFA533 &lcd,
                           QObject *parent = nullptr);
 
     QString caption() const;
     void setCaption(const QString caption);
+
+    void show() const;
 
 signals:
     void accepted();
@@ -26,7 +29,7 @@ signals:
 public slots:
 
 private:
-    crystalfontz::cfa533::CFA533 *m_lcd;
+    crystalfontz::cfa533::CFA533 &m_lcd;
     QString m_caption;
 
 };

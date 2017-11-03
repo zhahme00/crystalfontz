@@ -8,14 +8,13 @@ namespace dialogs {
 
 using namespace crystalfontz::cfa533;
 
-Confirmation::Confirmation(crystalfontz::cfa533::CFA533 *lcd,
+Confirmation::Confirmation(crystalfontz::cfa533::CFA533 &lcd,
                            QObject *parent) :
     QObject(parent),
     m_lcd(lcd),
     m_caption("Confirm?")
 {
-    lcd->send(send_data_to_lcd(2, 1, "helloworld"));
-    lcd->send(send_data_to_lcd(2, 2, "v-Yes   x-No"));
+    show();
 }
 
 QString Confirmation::caption() const
@@ -26,6 +25,13 @@ QString Confirmation::caption() const
 void Confirmation::setCaption(const QString caption)
 {
     m_caption = caption;
+}
+
+void Confirmation::show() const
+{
+    m_lcd.send(clear_lcd_screen());
+    m_lcd.send(send_data_to_lcd(5, 0, caption().toLocal8Bit()));
+    m_lcd.send(send_data_to_lcd(1, 1, "v-Yes x-No"));
 }
 
 } // dialogs

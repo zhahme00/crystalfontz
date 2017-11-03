@@ -1,3 +1,13 @@
+2017-11-02
+21:30	Started
+	Researched console project compilation error.
+	Renamed screen project to fix compilation error when project 
+          referrenced in console tester project. (Dash in name was not
+          accepted.
+	Rsearched & added project dependencies in master project .pro file.
+23:30	Stopped
+        
+
 2017-11-01
 21:20	Started
 	Renamed projects.
