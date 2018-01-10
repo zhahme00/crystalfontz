@@ -11,7 +11,7 @@ namespace {
 // Type and command are embedded in the same byte to extracting at the same time.
 void extract(const char byte1, Packet::Type &type, int &command)
 {
-    type = (Packet::Type)(byte1 & 0xC0);
+    type = (Packet::Type)((byte1 & 0xC0) >> 6);
     command = byte1 & 0x3F;
 }
 }
