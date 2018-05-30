@@ -9,9 +9,15 @@
 #define CRYSTALFONTZ_CFA533_PACKET_H
 
 #include <QByteArray>
+#include <QLoggingCategory>
 
 namespace crystalfontz {
 namespace cfa533 {
+
+// This header file is referenced by almost all the other files in this
+// project. So it seemed like a good (or central) place to declare the
+// logging category.
+Q_DECLARE_LOGGING_CATEGORY(cfa533logging)
 
 class Packet
 {

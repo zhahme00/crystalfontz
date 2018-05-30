@@ -40,6 +40,8 @@ private:
     // Fragmented packets can arrive from the serial port. Fragmented data bytes
     // are queued and processed when all are available.
     QByteArray m_ingressBytes;
+
+    bool m_error_logged;
 };
 
 } // cfa533

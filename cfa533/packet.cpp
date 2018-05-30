@@ -6,6 +6,8 @@
 namespace crystalfontz {
 namespace cfa533 {
 
+Q_LOGGING_CATEGORY(cfa533logging, "crystalfontz.cfa533")
+
 // Is this the optimal way to declare private functions?
 namespace {
 // Type and command are embedded in the same byte to extracting at the same time.
@@ -50,7 +52,7 @@ int Packet::command() const
 void Packet::setCommand(int value)
 {
     if (value < 0) {
-        qWarning() << "Invalid assignment" << value
+        qCWarning(cfa533logging) << "Invalid assignment" << value
                    << ". command must be 0 <= value <=" << kTotalCommands;
         return;
     }
@@ -71,7 +73,7 @@ void Packet::setData(QByteArray value)
 bool serialize(const Packet &packet, QByteArray &array)
 {
     if (!is_valid(packet)) {
-        qDebug() << "Invalid packet, serialization failed";
+        qCDebug(cfa533logging) << "Invalid packet, serialization failed";
         return false;
     }
 
@@ -100,7 +102,7 @@ bool deserialize(const QByteArray &array, Packet &packet, bool checkCRC)
     Q_UNUSED(checkCRC);
 
     if (!is_valid(array)) {
-        qDebug() << "Byte array is not deserializabe to a packet";
+        qCDebug(cfa533logging) << "Byte array is not deserializabe to a packet";
         return false;
     }
 
@@ -126,7 +128,7 @@ bool is_valid(const Packet &packet)
 bool is_valid(const QByteArray &array)
 {
     if (array.length() < 4) {
-        qDebug() << "Not enough data to form a packet";
+        qCDebug(cfa533logging) << "Not enough data to form a packet";
         return false;
     }
 
@@ -138,18 +140,18 @@ bool is_valid(const QByteArray &array)
     int command;
     extract(array[0], type, command);
     if (command > kTotalCommands) {
-        qDebug() << "Command type is outside range: 0 <= type <= " << kTotalCommands;
+        qCDebug(cfa533logging) << "Command type is outside range: 0 <= type <= " << kTotalCommands;
         return false;
     }
 
     auto dataLength = (int)array[1];
     if (dataLength < 0 || dataLength > kMaxDataLength) {
-        qDebug() << "Data length is out of bounds, current size = " << dataLength;
+        qCDebug(cfa533logging) << "Data length is out of bounds, current size = " << dataLength;
         return false;
     }
 
     if (array.length() < kMinPacketSize + dataLength) {
-        qDebug() << "Packet does not contain enough 'data' bytes";
+        qCDebug(cfa533logging) << "Packet does not contain enough 'data' bytes";
         return false;
     }
 

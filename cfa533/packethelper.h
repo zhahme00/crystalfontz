@@ -20,7 +20,12 @@ enum class KeyType {
     RightPress = 4,
     OkPress = 5,
     CancelPress = 6,
-    UpRelease = 7
+    UpRelease = CancelPress + UpPress,
+    DownRelease = CancelPress + DownPress,
+    LeftRelease = CancelPress + LeftPress,
+    RightRelease = CancelPress + RightPress,
+    OkRelease = CancelPress + OkPress,
+    CancelRelease = CancelPress + CancelPress
 };
 
 // TODO

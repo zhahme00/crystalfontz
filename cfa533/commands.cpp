@@ -34,7 +34,7 @@ Packet clear_lcd_screen()
 Packet set_lcd_cursor_position(int col, int row)
 {
     if (!in_bounds(col, row)) {
-        qDebug() << "Row or col out of bounds";
+        qCDebug(cfa533logging) << "Row or col out of bounds";
         return kInvalid;
     }
 
@@ -52,17 +52,17 @@ Packet set_lcd_cursor_style(Cfa533Cursor style)
 //Packet send_data_to_lcd(int col, int row, const QString &text)
 //{
 //    if (!in_bounds(col, row)) {
-//        qDebug() << "Row or col out of bounds";
+//        qCDebug(cfa533logging) << "Row or col out of bounds";
 //        return kInvalid;
 //    }
 
 //    if (text.isNull() || text.isEmpty()) {
-//        qDebug() << "Must send 1 or more characters";
+//        qCDebug(cfa533logging) << "Must send 1 or more characters";
 //    }
 
 //    const int kMaxTextSize = 16;
 //    if (text.length() > kMaxTextSize) {
-//        qDebug() << "Text too long, truncating to 16";
+//        qCDebug(cfa533logging) << "Text too long, truncating to 16";
 //    }
 
 //    QByteArray array;
@@ -75,18 +75,18 @@ Packet set_lcd_cursor_style(Cfa533Cursor style)
 Packet send_data_to_lcd(int col, int row, const QByteArray data)
 {
     if (!in_bounds(col, row)) {
-        qDebug() << "Row or col out of bounds";
+        qCDebug(cfa533logging) << "Row or col out of bounds";
         return kInvalid;
     }
 
     if (data.length() < 1) {
-        qDebug() << "Must send 1 or more characters";
+        qCDebug(cfa533logging) << "Must send 1 or more characters";
         return kInvalid;
     }
 
     const int kMaxTextSize = 16;
     if (data.length() > kMaxTextSize) {
-        qDebug() << "Text too long, truncating to 16";
+        qCDebug(cfa533logging) << "Text too long, truncating to 16";
     }
 
     QByteArray array;

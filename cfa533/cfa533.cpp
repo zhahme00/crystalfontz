@@ -8,7 +8,8 @@ namespace cfa533 {
 
 CFA533::CFA533(QString port, int baudrate, QObject *parent) :
     QObject(parent),
-    m_serialPort(port, this)
+    m_serialPort(port, this),
+    m_error_logged(false)
 {
     m_serialPort.setBaudRate(baudrate);
     QObject::connect(&m_serialPort, &QSerialPort::readyRead, this, &CFA533::onSerialPortReadyRead);
@@ -23,13 +24,13 @@ bool CFA533::isReady() const
 bool CFA533::send(const Packet &packet)
 {
     if (!is_valid(packet)) {
-        qDebug() << "Cannot send invalid packet";
+        qCDebug(cfa533logging) << "Cannot send invalid packet";
         return false;
     }
 
     QByteArray bytes;
     if (!cfa533::serialize(packet, bytes)) {
-        qDebug() << "Failed to serialize packet";
+        qCDebug(cfa533logging) << "Failed to serialize packet";
         return false;
     }
 
@@ -43,10 +44,11 @@ bool CFA533::open()
     }
 
     if (!m_serialPort.open(QSerialPort::ReadWrite)) {
-        qWarning() << "Failed to open serial port";
+        qCWarning(cfa533logging) << "Failed to open serial port";
         return false;
     }
 
+    m_error_logged = false;
     return true;
 }
 
@@ -91,19 +93,19 @@ void CFA533::onSerialPortReadyRead()
 
 //        if (bytes.length() < 4) {
 //            m_ingressBytes += bytes;
-//            qDebug() << "Fragmented packet received";
+//            qCDebug(cfa533logging) << "Fragmented packet received";
 //            return;
 //        }
 //    }
 
 //    // All packets are 4 or more bytes.
 //    if (m_ingressBytes.length() < 4) {
-//        qDebug() << "Packet length still too small";
+//        qCDebug(cfa533logging) << "Packet length still too small";
 //        return;
 //    }
 
 //    // TODO: proces
-//    qDebug() << m_ingressBytes;
+//    qCDebug(cfa533logging) << m_ingressBytes;
 //    m_ingressBytes.clear();
 }
 
@@ -113,7 +115,15 @@ void CFA533::onSerialPortErrorOccurred(QSerialPort::SerialPortError error)
         return;
     }
 
-    qWarning() << "Error from serial port" << m_serialPort.portName() << ":" << error;
+    if (!m_error_logged) {
+        // Stop spamming the log with error reports, only report once.
+        // The error signal from the serial port is raised endlessly
+        // and appears to be a bug/issue in some versions of Qt.
+        qCWarning(cfa533logging) << "Error from serial port" << m_serialPort.portName() << ":" << error;
+        m_error_logged = true;
+    }
+
+    Q_ASSERT(m_error_logged);
 }
 
 } // cfa533
