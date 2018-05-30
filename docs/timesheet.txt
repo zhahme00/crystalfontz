@@ -1,3 +1,9 @@
+2018-29-05
+10:40	Started
+	Researched storing current state to flash.
+	Created method to commit to flash.
+10:55	Stopped
+
 2017-11-02
 21:30	Started
 	Researched console project compilation error.

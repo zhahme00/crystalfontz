@@ -26,6 +26,7 @@ enum class Cfa533Cursor {
 // add clarity to the type of packet one is constructing.
 Packet ping_command(const QByteArray &data);
 Packet get_hardware_firmware_version();
+Packet store_current_state_as_boot_state();
 Packet clear_lcd_screen();
 Packet set_lcd_cursor_position(int col, int row);
 Packet set_lcd_cursor_style(Cfa533Cursor style);

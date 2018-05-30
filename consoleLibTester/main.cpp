@@ -39,6 +39,8 @@ int main(int argc, char *argv[])
     lcd.send(set_lcd_cursor_position(12, 0));
     lcd.send(set_lcd_cursor_style(Cfa533Cursor::BlinkingUnderscore));
     lcd.send(send_data_to_lcd(2, 0, "testing..."));
+    lcd.send(store_current_state_as_boot_state());
+
 
     // Display scrolling text on to the hardware implicitly.
 //    screen::Scrolling sc1;
@@ -48,9 +50,9 @@ int main(int argc, char *argv[])
 //                 << "Another line"
 //                 << "Some more lines"
 //                 << "one last line");
-    Confirmation confirm(lcd, nullptr);
-    confirm.setCaption("OK?");
-    confirm.show();
+//    Confirmation confirm(lcd, nullptr);
+//    confirm.setCaption("OK?");
+//    confirm.show();
 
 
     return app.exec();

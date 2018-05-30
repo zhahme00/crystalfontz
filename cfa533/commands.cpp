@@ -97,5 +97,10 @@ Packet send_data_to_lcd(int col, int row, const QByteArray data)
     return Packet(kRequest, 0x1F, array);
 }
 
+Packet store_current_state_as_boot_state()
+{
+    return Packet(kRequest, 0x04, kEmpty);
+}
+
 } // cfa533
 } // crystalfontz
